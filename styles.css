@@ -167,3 +167,44 @@ footer {
         font-size: 1.2em;
     }
 }
+
+/* Estilos para vista móvil */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+  }
+
+  nav#nav-menu {
+    display: none;
+    flex-direction: column;
+    background-color: #2980b9;
+    width: 100%;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  nav#nav-menu a {
+    padding: 10px;
+    border-top: 1px solid #3498db;
+  }
+
+  nav#nav-menu.show {
+    display: flex;
+  }
+
+  .header-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-container {
+    flex-direction: row;
+    align-items: center;
+  }
+}
