@@ -1,210 +1,84 @@
+/* Reset básico */
 body {
-    font-family: 'Segoe UI', sans-serif;
-    margin: 0;
-    background-color: #f4faff;
-    color: #003366;
-    padding-top: 90px;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 header {
-    background-color: #cce6ff;
-    padding: 10px 20px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #d2e6f9;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.header-left {
-    display: flex;
-    align-items: center;
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.5em;
+.logo-container {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-    height: 40px;
-    width: 40px;
-    object-fit: contain;
-    margin-right: 10px;
+  height: 40px;
+  margin-right: 10px;
 }
 
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: #003366;
-    cursor: pointer;
+.brand-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #003366;
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+.nav-links {
+  display: flex;
+  gap: 15px;
 }
 
-nav ul li {
-    margin: 0 10px;
+.nav-links a {
+  text-decoration: none;
+  color: #003366;
+  font-weight: 500;
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #003366;
-    font-weight: bold;
-    padding: 8px 12px;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-}
-
-nav ul li a:hover {
-    background-color: #b3daff;
-}
-
-section {
-    padding: 30px 20px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 4px 10px rgba(0, 51, 102, 0.1);
-    margin: 20px 0;
-}
-
-section h2 {
-    margin-top: 0;
-    color: #005c99;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #99c2ff;
-    border-radius: 8px;
-    background-color: #f9fbff;
-}
-
-input[type="text"], input[type="month"], input[type="number"], select {
-    width: 100%;
-    padding: 6px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-sizing: border-box;
-    background-color: #fff;
-}
-
-button {
-    background-color: #007acc;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    margin-top: 10px;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #005c99;
-}
-
-footer {
-    background-color: #cce6ff;
-    text-align: center;
-    padding: 20px;
-    font-size: 0.9em;
-    margin-top: 50px;
-    color: #003366;
-}
-
-#contributionResult, #pensionResult, #simulatorResult, #youngPlanningResult, #financialPlanResult {
-    margin-top: 10px;
-    font-weight: bold;
-    background-color: #e6f2ff;
-    padding: 10px;
-    border-radius: 10px;
-    border-left: 4px solid #3399ff;
+/* Botón hamburguesa */
+.hamburger {
+  display: none;
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #003366;
 }
 
 /* Responsive */
-@media screen and (max-width: 768px) {
-    nav ul {
-        display: none;
-        flex-direction: column;
-        background-color: #cce6ff;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        z-index: 999;
-    }
-
-    nav ul.show {
-        display: flex;
-    }
-
-    .menu-toggle {
-        display: block;
-    }
-
-    header h1 {
-        font-size: 1.2em;
-    }
-}
-
-/* Estilos para vista móvil */
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 28px;
-    color: white;
-    cursor: pointer;
-  }
-
-  nav#nav-menu {
+  .nav-links {
     display: none;
     flex-direction: column;
-    background-color: #2980b9;
-    width: 100%;
-    padding: 0;
-    margin-top: 10px;
-  }
-
-  nav#nav-menu a {
+    background-color: #d2e6f9;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    width: 200px;
     padding: 10px;
-    border-top: 1px solid #3498db;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 
-  nav#nav-menu.show {
+  .nav-links.active {
     display: flex;
   }
 
-  .header-container {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo-container {
-    flex-direction: row;
-    align-items: center;
+  .hamburger {
+    display: block;
   }
 }
