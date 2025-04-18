@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>JubiTiempo</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JubiTiempo</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
+
+<header>
   <div class="header-container">
     <div class="logo-container">
       <img src="img/logo.png" alt="Logo" class="logo" />
       <span class="brand-name">JubiTiempo</span>
     </div>
     <button class="hamburger" onclick="toggleMenu()">☰</button>
-    <nav id="nav-menu">
+    <nav id="nav-menu" class="nav-links">
       <a href="#aporte">Inicio</a>
       <a href="#haber">Haber jubilatorio</a>
       <a href="#simulador">Simulador</a>
@@ -25,173 +26,39 @@
   </div>
 </header>
 
-    <section id="inicio">
-        <h2>Cálculo de años aportados</h2>
-        <p>Ingresar a la web del ANSES y consultar "Historial laboral" para completar los registros para su cálculo.</p>
-        <table id="laborTable">
-            <thead>
-                <tr>
-                    <th>Empleador</th>
-                    <th>Desde</th>
-                    <th>Hasta</th>
-                    <th>Régimen</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="laborBody">
-                <tr>
-                    <td><input type="text" name="employer"></td>
-                    <td><input type="month" name="from"></td>
-                    <td><input type="month" name="to"></td>
-                    <td>
-                        <select name="regimen">
-                            <option value="dependencia">Relación de dependencia</option>
-                            <option value="autonomo">Autónomo</option>
-                            <option value="monotributo">Monotributo</option>
-                            <option value="docente">Docente</option>
-                        </select>
-                    </td>
-                    <td>
-                        <button type="button" onclick="addRow()">+</button>
-                        <input type="file" id="pdfInput" accept="application/pdf" onchange="handlePDFImport()" style="margin-left: 10px;">
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<main>
+  <!-- SECCIONES DE CONTENIDO (placeholder) -->
+  <section id="aporte">
+    <h2>Cálculo de años aportados</h2>
+    <!-- Tu formulario o contenido va acá -->
+  </section>
 
-        <label for="gender">Género:</label>
-        <select id="gender" onchange="toggleCareFields()">
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-        </select>
+  <section id="haber">
+    <h2>Cálculo del haber jubilatorio</h2>
+    <!-- Tu formulario o contenido va acá -->
+  </section>
 
-        <div id="careFields" style="display:none;">
-            <label for="liveBirths">Hijos nacidos vivos:</label>
-            <input type="number" id="liveBirths" min="0" value="0">
-            <label for="adopted">Hijos adoptados:</label>
-            <input type="number" id="adopted" min="0" value="0">
-            <label for="disabled">Hijos con discapacidad:</label>
-            <input type="number" id="disabled" min="0" value="0">
-            <label for="auh">Hijos con AUH (12+ meses):</label>
-            <input type="number" id="auh" min="0" value="0">
-        </div>
+  <section id="simulador">
+    <h2>Simulador de escenarios</h2>
+    <!-- Tu formulario o contenido va acá -->
+  </section>
 
-        <button onclick="calculateContributions()">Calcular aportes</button>
-        <button onclick="generatePDF()">Descargar informe PDF</button>
-        <div id="contributionResult"></div>
-    </section>
+  <section id="comparador">
+    <h2>Comparador de preferencias</h2>
+    <!-- Tu contenido va acá -->
+  </section>
 
-    <section id="haber">
-        <h2>Cálculo del haber jubilatorio</h2>
-        <label for="averageSalary">Promedio de los últimos 120 sueldos:</label>
-        <input type="number" id="averageSalary" placeholder="Ej: 200000">
-        <label for="baseAmount">Monto base actual (editable):</label>
-        <input type="number" id="baseAmount" value="1170.23">
-        <button onclick="calculatePension()">Calcular haber</button>
-        <div id="pensionResult"></div>
-    </section>
+  <section id="financiero">
+    <h2>Plan financiero</h2>
+    <!-- Tu contenido va acá -->
+  </section>
 
-    <section id="simulador">
-        <h2>Simulador de escenarios</h2>
-        <h3>Simulador rápido</h3>
-        <label for="simulatedYears">Años adicionales simulados:</label>
-        <input type="number" id="simulatedYears" min="0">
-        <label for="simulatedSalary">Sueldo promedio simulado:</label>
-        <input type="number" id="simulatedSalary" placeholder="Ej: 200000">
-        <label for="simulatedRegimen">Régimen simulado:</label>
-        <select id="simulatedRegimen">
-            <option value="dependencia">Relación de dependencia</option>
-            <option value="autonomo">Autónomo</option>
-            <option value="monotributo">Monotributo</option>
-            <option value="docente">Docente</option>
-        </select>
-        <button onclick="simulateScenario()">Simular</button>
-        <div id="simulatorResult"></div>
+  <section id="noticias">
+    <h2>Noticias</h2>
+    <!-- Tu contenido va acá -->
+  </section>
+</main>
 
-        <h3>Planificación para jóvenes</h3>
-        <label for="youngAge">Edad actual:</label>
-        <input type="number" id="youngAge" min="16">
-        <label for="startAge">Edad de inicio de aportes:</label>
-        <input type="number" id="startAge" min="16">
-        <label for="expectedYears">Años que espera aportar:</label>
-        <input type="number" id="expectedYears" min="1">
-        <button onclick="planForYoung()">Evaluar planificación</button>
-        <div id="youngPlanningResult"></div>
-    </section>
-
-    <section id="comparador">
-        <h2>Comparador de regímenes</h2>
-        <table>
-            <tr>
-                <th>Régimen</th>
-                <th>Edad jubilatoria</th>
-                <th>Años de aporte</th>
-                <th>Cálculo del haber</th>
-                <th>Moratoria</th>
-            </tr>
-            <tr>
-                <td>Relación de dependencia</td>
-                <td>65 (H) / 60 (M)</td>
-                <td>30</td>
-                <td>Promedio 120 sueldos</td>
-                <td>Sí</td>
-            </tr>
-            <tr>
-                <td>Autónomos</td>
-                <td>65</td>
-                <td>30</td>
-                <td>Escala mínima AFIP</td>
-                <td>Sí</td>
-            </tr>
-            <tr>
-                <td>Monotributo</td>
-                <td>65 (H) / 60 (M)</td>
-                <td>30</td>
-                <td>Categoría fija</td>
-                <td>Sí</td>
-            </tr>
-            <tr>
-                <td>Docente</td>
-                <td>60 (H) / 57 (M)</td>
-                <td>25</td>
-                <td>Régimen especial</td>
-                <td>Variable</td>
-            </tr>
-        </table>
-    </section>
-
-    <section id="planificador">
-        <h2>Planificador financiero</h2>
-        <label for="targetPension">Haber mensual deseado:</label>
-        <input type="number" id="targetPension">
-        <label for="yearsToRetire">Años hasta jubilarse:</label>
-        <input type="number" id="yearsToRetire">
-        <label for="interestRate">Tasa de interés anual (%):</label>
-        <input type="number" id="interestRate">
-        <button onclick="calculateSavingsPlan()">Calcular ahorro mensual</button>
-        <div id="financialPlanResult"></div>
-    </section>
-
-    <section id="noticias">
-        <h2>Noticias previsionales</h2>
-        <article>
-            <h4>Moratoria 2025</h4>
-            <p>Se extiende el plazo para regularizar aportes hasta junio de 2025.</p>
-        </article>
-        <article>
-            <h4>Cambios en edad mínima para mujeres</h4>
-            <p>El Senado debate proyecto que propone equiparar la edad jubilatoria.</p>
-        </article>
-    </section>
-
-    <section id="sobre">
-        <h2>Sobre JubiTiempo</h2>
-        <p>La web del Anses no informa cuántos años te faltan para jubilarte. JubiTiempo nace para llenar ese vacío, permitiéndote calcular tu situación previsional usando los datos de tu historia laboral.</p>
-    </section>
-
-    <footer>
-        <p>Desarrollado por Sergio Sainz | Contacto: sergiosainz.proyectos@gmail.com</p>
-        <p>Donaciones - Alias: sergiosainz.mp</p>
-    </footer>
+<script src="script.js"></script>
 </body>
 </html>
