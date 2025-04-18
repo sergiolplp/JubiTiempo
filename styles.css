@@ -1,84 +1,102 @@
-/* Reset básico */
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f8ff;
 }
 
-header {
-  background-color: #d2e6f9;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 999;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.header-container {
+.header {
+  background-color: #b3d4fc;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  flex-wrap: wrap;
+  padding: 10px 16px;
 }
 
-.logo-container {
+.brand {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .logo {
   height: 40px;
-  margin-right: 10px;
+  width: 40px;
 }
 
-.brand-name {
-  font-size: 1.4rem;
+.title {
   font-weight: bold;
+  font-size: 1.3em;
   color: #003366;
 }
 
-.nav-links {
-  display: flex;
-  gap: 15px;
+.menu-btn {
+  background-color: #004a99;
+  color: white;
+  font-size: 24px;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
 }
 
-.nav-links a {
+.nav-menu {
+  display: none;
+  flex-direction: column;
+  background-color: #e6f0ff;
+  padding: 10px;
+}
+
+.nav-menu a {
   text-decoration: none;
   color: #003366;
-  font-weight: 500;
+  margin: 4px 0;
+  font-weight: bold;
 }
 
-/* Botón hamburguesa */
-.hamburger {
-  display: none;
-  font-size: 1.6rem;
-  background: none;
+.nav-menu.show {
+  display: flex;
+}
+
+main {
+  padding: 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+  color: #004a99;
+}
+
+label, input, select {
+  display: block;
+  margin: 8px 0;
+  font-size: 1em;
+}
+
+input, select {
+  padding: 6px;
+  width: 100%;
+  max-width: 300px;
+}
+
+button {
+  background-color: #007acc;
+  color: white;
   border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 6px;
   cursor: pointer;
-  color: #003366;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: #d2e6f9;
-    position: absolute;
-    top: 70px;
-    right: 20px;
-    width: 200px;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .hamburger {
-    display: block;
-  }
+pre {
+  background-color: #f4faff;
+  padding: 12px;
+  border-radius: 8px;
+  white-space: pre-wrap;
 }
