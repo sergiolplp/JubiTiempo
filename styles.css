@@ -3,13 +3,46 @@ body {
     margin: 0;
     background-color: #f4faff;
     color: #003366;
+    padding-top: 90px;
 }
 
 header {
     background-color: #cce6ff;
-    padding: 1em;
-    text-align: center;
-    position: relative;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.logo {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #003366;
+    cursor: pointer;
 }
 
 nav ul {
@@ -66,10 +99,7 @@ th, td {
     background-color: #f9fbff;
 }
 
-input[type="text"],
-input[type="month"],
-input[type="number"],
-select {
+input[type="text"], input[type="month"], input[type="number"], select {
     width: 100%;
     padding: 6px;
     border: 1px solid #ccc;
@@ -103,11 +133,7 @@ footer {
     color: #003366;
 }
 
-#contributionResult,
-#pensionResult,
-#simulatorResult,
-#youngPlanningResult,
-#financialPlanResult {
+#contributionResult, #pensionResult, #simulatorResult, #youngPlanningResult, #financialPlanResult {
     margin-top: 10px;
     font-weight: bold;
     background-color: #e6f2ff;
@@ -116,7 +142,7 @@ footer {
     border-left: 4px solid #3399ff;
 }
 
-/* Responsive Menu */
+/* Responsive */
 @media screen and (max-width: 768px) {
     nav ul {
         display: none;
@@ -135,19 +161,9 @@ footer {
 
     .menu-toggle {
         display: block;
-        background: none;
-        border: none;
-        font-size: 28px;
-        color: #003366;
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        cursor: pointer;
-        z-index: 1000;
     }
-}
 
-/* Ocultar botón de menú en escritorio */
-.menu-toggle {
-    display: none;
+    header h1 {
+        font-size: 1.2em;
+    }
 }
