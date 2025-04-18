@@ -1,16 +1,7 @@
 function toggleMenu() {
   const nav = document.getElementById("nav-menu");
-  nav.classList.toggle("active");
+  nav.classList.toggle("show");
 }
-
-document.addEventListener("DOMContentLoaded", function () {
-  const navLinks = document.querySelectorAll("#nav-menu a");
-  navLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      document.getElementById("nav-menu").classList.remove("active");
-    });
-  });
-});
 
 function addRow() {
   const table = document.getElementById("laborBody");
