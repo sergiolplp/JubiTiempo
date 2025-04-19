@@ -1,102 +1,84 @@
+/* Estilos generales */
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f0f8ff;
+  font-family: Arial, sans-serif;
 }
 
-.header {
-  background-color: #b3d4fc;
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.navbar-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .logo {
-  height: 40px;
-  width: 40px;
-}
-
-.title {
-  font-weight: bold;
-  font-size: 1.3em;
-  color: #003366;
-}
-
-.menu-btn {
-  background-color: #004a99;
-  color: white;
-  font-size: 24px;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 10px;
-}
-
-.nav-menu {
-  display: none;
-  flex-direction: column;
-  background-color: #e6f0ff;
-  padding: 10px;
-}
-
-.nav-menu a {
-  text-decoration: none;
-  color: #003366;
-  margin: 4px 0;
-  font-weight: bold;
-}
-
-.nav-menu.show {
   display: flex;
+  align-items: center;
 }
 
-main {
-  padding: 16px;
+.logo img {
+  height: 40px;
+  margin-right: 0.5rem;
 }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 16px 0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.logo span {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007BFF; /* Azul celeste */
 }
 
-h2 {
-  color: #004a99;
+.nav-links {
+  display: flex;
+  gap: 1rem;
 }
 
-label, input, select {
-  display: block;
-  margin: 8px 0;
-  font-size: 1em;
+.nav-links a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 1rem;
+  transition: color 0.3s;
 }
 
-input, select {
-  padding: 6px;
-  width: 100%;
-  max-width: 300px;
+.nav-links a:hover {
+  color: #007BFF;
 }
 
-button {
-  background-color: #007acc;
-  color: white;
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
   border: none;
-  padding: 8px 12px;
-  margin-top: 10px;
-  border-radius: 6px;
   cursor: pointer;
 }
 
-pre {
-  background-color: #f4faff;
-  padding: 12px;
-  border-radius: 8px;
-  white-space: pre-wrap;
+/* Responsive para tablet y móvil */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #ffffff;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
 }
