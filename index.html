@@ -96,6 +96,214 @@
       <a href="#sobre">Sobre el sitio</a>
     </div>
   </nav>
+  
+  <!-- SECCIÓN: Cálculo de años aportados -->
+<section id="calculo-aportes" style="padding: 40px;">
+  <style>
+    .aportes-container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px;
+      font-size: 1rem;
+    }
+
+    .laboral-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .laboral-row input,
+    .laboral-row select {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .botones {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .botones button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #tareas-cuidado {
+      display: none;
+      padding: 15px;
+      background: #f2f8ff;
+      border: 1px solid #cce0f5;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+  </style>
+
+  <div class="aportes-container">
+    <h2>Cálculo de años aportados</h2>
+
+    <div class="form-group">
+      <label for="sexo">Sexo:</label>
+      <select id="sexo" onchange="mostrarTareasCuidado()">
+        <option value="">Seleccionar</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="nacimiento">Año de nacimiento:</label>
+      <input type="number" id="nacimiento" min="1900" max="2100" />
+    </div>
+
+    <div id="tareas-cuidado">
+      <div class="form-group">
+        <label for="hijos">Cantidad de hijos/as nacidos vivos:</label>
+        <input type="number" id="hijos" min="0" />
+      </div>
+      <div class="form-group">
+        <label for="hijos-discapacitados">Cantidad de hijos/as con discapacidad:</label>
+        <input type="number" id="hijos-discapacitados" min="0" />
+      </div>
+      <div class="form-group">
+        <label for="hijos-adoptados">Cantidad de hijos/as adoptados/as:</label>
+        <input type="number" id="hijos-adoptados" min="0" />
+      </div>
+      <div class="form-group">
+        <label for="auh">¿Cobrás AUH por al menos 12 meses? (cantidad de hijos):</label>
+        <input type="number" id="auh" min="0" />
+      </div>
+    </div>
+
+    <div id="historial-laboral">
+      <label style="font-weight: bold; margin-top: 15px;">Historial laboral:</label>
+      <div class="laboral-row">
+        <input type="text" placeholder="Razón social" />
+        <input type="month" placeholder="Desde" />
+        <input type="month" placeholder="Hasta" />
+        <select>
+          <option value="dependencia">Relación de dependencia</option>
+          <option value="autonomo">Autónomo</option>
+          <option value="monotributo">Monotributo</option>
+          <option value="docente">Docente</option>
+          <option value="servicio_domestico">Servicio doméstico</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="botones">
+      <button onclick="agregarFila()">+ Agregar línea</button>
+      <button onclick="document.getElementById('fileInput').click()">Adjuntar PDF</button>
+      <input type="file" id="fileInput" accept="application/pdf" onchange="leerPDF(this.files[0])" />
+    </div>
+  </div>
+
+  <!-- Cargar librería PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
+  <script>
+    function mostrarTareasCuidado() {
+      const sexo = document.getElementById('sexo').value;
+      const tareas = document.getElementById('tareas-cuidado');
+      tareas.style.display = sexo === 'femenino' ? 'block' : 'none';
+    }
+
+    function agregarFila() {
+      const container = document.getElementById('historial-laboral');
+      const nuevaFila = document.createElement('div');
+      nuevaFila.className = 'laboral-row';
+      nuevaFila.innerHTML = `
+        <input type="text" placeholder="Razón social" />
+        <input type="month" placeholder="Desde" />
+        <input type="month" placeholder="Hasta" />
+        <select>
+          <option value="dependencia">Relación de dependencia</option>
+          <option value="autonomo">Autónomo</option>
+          <option value="monotributo">Monotributo</option>
+          <option value="docente">Docente</option>
+          <option value="servicio_domestico">Servicio doméstico</option>
+        </select>
+      `;
+      container.appendChild(nuevaFila);
+    }
+
+    async function leerPDF(file) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+      let textoCompleto = "";
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        textoCompleto += content.items.map(i => i.str).join(" ") + "\n";
+      }
+
+      // Extraer líneas con patrón "RAZÓN SOCIAL CUIT FECHA-FECHA"
+      const regex = /([A-Z\s]{3,})\s+\d{11}\s+(\d{2}\/\d{4})-(\d{2}\/\d{4})/g;
+      let match;
+      const container = document.getElementById('historial-laboral');
+      container.innerHTML = ""; // limpiar contenido actual
+
+      while ((match = regex.exec(textoCompleto)) !== null) {
+        const razon = match[1].trim();
+        const desde = match[2];
+        const hasta = match[3];
+        const row = document.createElement('div');
+        row.className = 'laboral-row';
+        row.innerHTML = `
+          <input type="text" value="${razon}" />
+          <input type="month" value="${formatearMes(desde)}" />
+          <input type="month" value="${formatearMes(hasta)}" />
+          <select>
+            <option value="dependencia" selected>Relación de dependencia</option>
+            <option value="autonomo">Autónomo</option>
+            <option value="monotributo">Monotributo</option>
+            <option value="docente">Docente</option>
+            <option value="servicio_domestico">Servicio doméstico</option>
+          </select>
+        `;
+        container.appendChild(row);
+      }
+    }
+
+    function formatearMes(str) {
+      const [mes, anio] = str.split("/");
+      return `${anio}-${mes.padStart(2, "0")}`;
+    }
+  </script>
+</section>
 
   <script>
     function toggleMenu() {
