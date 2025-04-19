@@ -1,117 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>JubiTiempo</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <header class="header">
-    <div class="brand">
-      <img src="logo.png" alt="Logo" class="logo"/>
-      <span class="title">JubiTiempo</span>
+<header class="navbar">
+  <div class="navbar-container">
+    <button class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
+    <div class="logo">
+      <img src="logo.png" alt="Logo JubiTiempo" />
+      <span>JubiTiempo</span>
     </div>
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <nav id="nav-menu" class="nav-menu">
-      <a href="#aportados">Cálculo de años aportados</a>
-      <a href="#haber">Cálculo del haber jubilatorio</a>
-      <a href="#escenarios">Simulador de escenarios</a>
-      <a href="#preferencias">Comparador de preferencias</a>
-      <a href="#jovenes">Planificación para jóvenes</a>
-      <a href="#financiera">Plan financiero</a>
+    <nav class="nav-links">
+      <a href="#calculo-aportes">Cálculo de años aportados</a>
+      <a href="#calculo-haber">Cálculo del haber jubilatorio</a>
+      <a href="#sobre-sitio">Sobre el sitio</a>
     </nav>
-  </header>
-
-  <main>
-    <section id="aportados" class="card">
-      <h2>Cálculo de años aportados</h2>
-      <label>Género:
-        <select id="gender" onchange="toggleCareFields()">
-          <option value="masculino">Masculino</option>
-          <option value="femenino">Femenino</option>
-        </select>
-      </label>
-
-      <div id="careFields" style="display:none;">
-        <label>Nacimientos con vida: <input type="number" id="liveBirths" /></label>
-        <label>Hijos adoptados: <input type="number" id="adopted" /></label>
-        <label>Hijos con discapacidad: <input type="number" id="disabled" /></label>
-        <label>AUH cobradas: <input type="number" id="auh" /></label>
-      </div>
-
-      <table>
-        <thead>
-          <tr><th>Desde</th><th>Hasta</th><th>Régimen</th></tr>
-        </thead>
-        <tbody id="laborBody">
-          <tr>
-            <td><input type="month" name="from" /></td>
-            <td><input type="month" name="to" /></td>
-            <td>
-              <select name="regimen">
-                <option value="dependencia">Dependencia</option>
-                <option value="autonomo">Autónomo</option>
-                <option value="monotributo">Monotributo</option>
-                <option value="docente">Docente</option>
-              </select>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <button onclick="addRow()">Agregar período</button>
-      <button onclick="calculateContributions()">Calcular aportes</button>
-      <pre id="contributionResult"></pre>
-    </section>
-
-    <section id="haber" class="card">
-      <h2>Cálculo del haber jubilatorio</h2>
-      <label>Promedio salarial: <input type="number" id="averageSalary" /></label>
-      <label>Monto base: <input type="number" id="baseAmount" value="1170.23" /></label>
-      <button onclick="calculatePension()">Calcular haber</button>
-      <pre id="pensionResult"></pre>
-    </section>
-
-    <section id="escenarios" class="card">
-      <h2>Simulador de escenarios</h2>
-      <label>Años simulados: <input type="number" id="simulatedYears" /></label>
-      <label>Ingreso mensual simulado: <input type="number" id="simulatedSalary" /></label>
-      <label>Régimen: 
-        <select id="simulatedRegimen">
-          <option value="dependencia">Dependencia</option>
-          <option value="autonomo">Autónomo</option>
-          <option value="monotributo">Monotributo</option>
-          <option value="docente">Docente</option>
-        </select>
-      </label>
-      <button onclick="simulateScenario()">Simular</button>
-      <pre id="simulatorResult"></pre>
-    </section>
-
-    <section id="preferencias" class="card">
-      <h2>Comparador de preferencias</h2>
-      <p>(Próximamente)</p>
-    </section>
-
-    <section id="jovenes" class="card">
-      <h2>Planificación para jóvenes</h2>
-      <label>Edad actual: <input type="number" id="youngAge" /></label>
-      <label>Edad de inicio laboral: <input type="number" id="startAge" /></label>
-      <label>Años previstos de aportes: <input type="number" id="expectedYears" /></label>
-      <button onclick="planForYoung()">Proyectar</button>
-      <pre id="youngPlanningResult"></pre>
-    </section>
-
-    <section id="financiera" class="card">
-      <h2>Plan financiero</h2>
-      <label>Objetivo de haber mensual: <input type="number" id="targetPension" /></label>
-      <label>Años hasta retiro: <input type="number" id="yearsToRetire" /></label>
-      <label>Rendimiento anual estimado (%): <input type="number" id="interestRate" /></label>
-      <button onclick="calculateSavingsPlan()">Calcular ahorro necesario</button>
-      <pre id="financialPlanResult"></pre>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
-</body>
-</html>
+  </div>
+</header>
