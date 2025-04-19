@@ -1,14 +1,145 @@
-<header class="navbar">
-  <div class="navbar-container">
-    <button class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
-    <div class="logo">
-      <img src="logo.png" alt="Logo JubiTiempo" />
-      <span>JubiTiempo</span>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JubiTiempo</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    /* Barra de navegación */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+
+    .logo span {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #007BFF; /* Azul celeste */
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000000;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #007BFF;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* Responsive para tablet y móvil */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: #ffffff;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-container">
+      <button class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
+      <div class="logo">
+        <img src="logo.png" alt="Logo JubiTiempo" />
+        <span>JubiTiempo</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#calculo-aportes">Cálculo de años aportados</a>
+        <a href="#calculo-haber">Cálculo del haber jubilatorio</a>
+        <a href="#sobre-sitio">Sobre el sitio</a>
+      </nav>
     </div>
-    <nav class="nav-links">
-      <a href="#calculo-aportes">Cálculo de años aportados</a>
-      <a href="#calculo-haber">Cálculo del haber jubilatorio</a>
-      <a href="#sobre-sitio">Sobre el sitio</a>
-    </nav>
-  </div>
-</header>
+  </header>
+
+  <!-- Secciones del sitio -->
+  <section id="calculo-aportes">
+    <h2>Cálculo de años aportados</h2>
+    <!-- Contenido aquí -->
+  </section>
+
+  <section id="calculo-haber">
+    <h2>Cálculo del haber jubilatorio</h2>
+    <!-- Contenido aquí -->
+  </section>
+
+  <section id="sobre-sitio">
+    <h2>Sobre el sitio</h2>
+    <!-- Contenido aquí -->
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const toggleButton = document.querySelector('.menu-toggle');
+      const navLinks = document.querySelector('.nav-links');
+
+      toggleButton.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+      });
+    });
+  </script>
+</body>
+</html>
