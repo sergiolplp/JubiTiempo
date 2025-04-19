@@ -2,21 +2,14 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>JubiTiempo</title>
   <style>
-    /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
     }
 
-    /* NAVBAR */
     nav {
       position: sticky;
       top: 0;
@@ -31,7 +24,7 @@
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 15px; /* Aumentado para mejor separación */
     }
 
     .logo-container img {
@@ -45,16 +38,15 @@
       color: #003366;
     }
 
-    .nav-links {
+    .menu-links {
       display: flex;
       gap: 20px;
     }
 
-    .nav-links a {
+    .menu-links a {
       text-decoration: none;
       color: #003366;
-      font-size: 1.1rem;
-      font-weight: bold;
+      font-size: 1.2rem;
     }
 
     .hamburger {
@@ -64,62 +56,52 @@
       border: none;
       color: #003366;
       cursor: pointer;
+      margin-right: 10px; /* Separación del logo */
     }
 
-    /* MOBILE MENU */
     @media (max-width: 768px) {
-      .nav-links {
+      .menu-links {
         display: none;
         flex-direction: column;
-        width: 100%;
-        background-color: #d0e8f2;
         position: absolute;
         top: 60px;
-        left: 0;
-        padding: 10px 20px;
+        left: 10px;
+        background-color: #d0e8f2;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       }
 
-      .nav-links.show {
+      .menu-links.show {
         display: flex;
       }
 
       .hamburger {
         display: block;
       }
-
-      nav {
-        flex-wrap: wrap;
-      }
-
-      .logo-container {
-        flex: 1;
-      }
     }
   </style>
 </head>
 <body>
   <nav>
-    <button class="hamburger" onclick="toggleMenu()">☰</button>
     <div class="logo-container">
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
       <img src="logo.png" alt="Logo" />
       <span class="logo-text">JubiTiempo</span>
     </div>
-    <div class="nav-links" id="menu">
+    <div class="menu-links" id="menuLinks">
       <a href="#anios">Cálculo de años aportados</a>
       <a href="#haber">Cálculo del haber jubilatorio</a>
       <a href="#sobre">Sobre el sitio</a>
     </div>
   </nav>
 
-  <!-- Acá empezarían las secciones reales -->
-  <section id="anios" style="padding: 40px;">Contenido 1</section>
-  <section id="haber" style="padding: 40px;">Contenido 2</section>
-  <section id="sobre" style="padding: 40px;">Contenido 3</section>
-
   <script>
     function toggleMenu() {
-      document.getElementById("menu").classList.toggle("show");
+      const menu = document.getElementById("menuLinks");
+      menu.classList.toggle("show");
     }
   </script>
+
 </body>
 </html>
