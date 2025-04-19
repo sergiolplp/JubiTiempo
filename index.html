@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>JubiTiempo</title>
   <style>
     /* Reset básico */
@@ -14,132 +14,112 @@
 
     body {
       font-family: Arial, sans-serif;
-      font-size: 18px;
-      line-height: 1.6;
     }
 
-    /* Barra de navegación */
-    .navbar {
+    /* NAVBAR */
+    nav {
       position: sticky;
       top: 0;
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       z-index: 1000;
-    }
-
-    .navbar-container {
+      background-color: #d0e8f2;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 10px 20px;
     }
 
-    .logo {
+    .logo-container {
       display: flex;
       align-items: center;
+      gap: 10px;
     }
 
-    .logo img {
+    .logo-container img {
       height: 40px;
-      margin-right: 0.5rem;
+      width: 40px;
     }
 
-    .logo span {
-      font-size: 1.5rem;
+    .logo-text {
+      font-size: 1.4rem;
       font-weight: bold;
-      color: #007BFF; /* Azul celeste */
+      color: #003366;
     }
 
     .nav-links {
       display: flex;
-      gap: 1rem;
+      gap: 20px;
     }
 
     .nav-links a {
       text-decoration: none;
-      color: #000000;
-      font-size: 1rem;
-      transition: color 0.3s;
+      color: #003366;
+      font-size: 1.1rem;
+      font-weight: bold;
     }
 
-    .nav-links a:hover {
-      color: #007BFF;
-    }
-
-    .menu-toggle {
+    .hamburger {
       display: none;
       font-size: 1.5rem;
       background: none;
       border: none;
+      color: #003366;
       cursor: pointer;
     }
 
-    /* Responsive para tablet y móvil */
+    /* MOBILE MENU */
     @media (max-width: 768px) {
-      .menu-toggle {
-        display: block;
-      }
-
       .nav-links {
         display: none;
         flex-direction: column;
-        background-color: #ffffff;
-        position: absolute;
-        top: 100%;
-        left: 0;
         width: 100%;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #d0e8f2;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 10px 20px;
       }
 
-      .nav-links.active {
+      .nav-links.show {
         display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .logo-container {
+        flex: 1;
       }
     }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="navbar-container">
-      <button class="menu-toggle" aria-label="Abrir menú">&#9776;</button>
-      <div class="logo">
-        <img src="logo.png" alt="Logo JubiTiempo" />
-        <span>JubiTiempo</span>
-      </div>
-      <nav class="nav-links">
-        <a href="#calculo-aportes">Cálculo de años aportados</a>
-        <a href="#calculo-haber">Cálculo del haber jubilatorio</a>
-        <a href="#sobre-sitio">Sobre el sitio</a>
-      </nav>
+  <nav>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+    <div class="logo-container">
+      <img src="logo.png" alt="Logo" />
+      <span class="logo-text">JubiTiempo</span>
     </div>
-  </header>
+    <div class="nav-links" id="menu">
+      <a href="#anios">Cálculo de años aportados</a>
+      <a href="#haber">Cálculo del haber jubilatorio</a>
+      <a href="#sobre">Sobre el sitio</a>
+    </div>
+  </nav>
 
-  <!-- Secciones del sitio -->
-  <section id="calculo-aportes">
-    <h2>Cálculo de años aportados</h2>
-    <!-- Contenido aquí -->
-  </section>
-
-  <section id="calculo-haber">
-    <h2>Cálculo del haber jubilatorio</h2>
-    <!-- Contenido aquí -->
-  </section>
-
-  <section id="sobre-sitio">
-    <h2>Sobre el sitio</h2>
-    <!-- Contenido aquí -->
-  </section>
+  <!-- Acá empezarían las secciones reales -->
+  <section id="anios" style="padding: 40px;">Contenido 1</section>
+  <section id="haber" style="padding: 40px;">Contenido 2</section>
+  <section id="sobre" style="padding: 40px;">Contenido 3</section>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const toggleButton = document.querySelector('.menu-toggle');
-      const navLinks = document.querySelector('.nav-links');
-
-      toggleButton.addEventListener('click', function () {
-        navLinks.classList.toggle('active');
-      });
-    });
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("show");
+    }
   </script>
 </body>
 </html>
