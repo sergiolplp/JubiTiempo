@@ -629,6 +629,18 @@
     };
     return mapa[valor] || valor;
   }
+  
+  
+  // Cierra el menú al hacer clic en un enlace (solo en responsive)
+  document.querySelectorAll('.menu-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const menu = document.getElementById('menuLinks');
+      if (menu.classList.contains('show')) {
+        menu.classList.remove('show');
+      }
+    });
+  });
+</script>
 </script>
 
 </body>
