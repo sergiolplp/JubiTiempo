@@ -314,6 +314,137 @@
   </script>
 </section>
 
+<!-- SECCIÓN: Cálculo del haber jubilatorio -->
+<section id="calculo-haber" style="padding: 40px;">
+  <style>
+    .haber-container {
+      max-width: 1000px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+
+    .haber-container h2 {
+      color: #003366;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 8px;
+      font-size: 1rem;
+    }
+
+    .botones {
+      margin-top: 20px;
+    }
+
+    .botones button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #resultado-haber {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f0f4f8;
+      border-left: 6px solid #007acc;
+      font-size: 1.1rem;
+      display: none;
+    }
+
+    #aniosManual {
+      display: none;
+      margin-top: 10px;
+    }
+
+    #aniosManual input {
+      width: 100%;
+    }
+  </style>
+
+  <div class="haber-container">
+    <h2>Cálculo del haber jubilatorio</h2>
+
+    <div class="form-group">
+      <label for="sueldoPromedio">Promedio de sueldo (últimos 10 años, sin aguinaldo):</label>
+      <input type="number" id="sueldoPromedio" placeholder="Ej: 250000" />
+    </div>
+
+    <div class="form-group">
+      <label for="baseFija">Monto base actual:</label>
+      <input type="number" id="baseFija" placeholder="Por defecto: 1170.23" />
+    </div>
+
+    <div class="form-group" id="aniosManual">
+      <label for="aniosIngresados">Años de aportes (si no usaste la sección anterior):</label>
+      <input type="number" id="aniosIngresados" placeholder="Ej: 28" />
+    </div>
+
+    <div class="botones">
+      <button onclick="calcularHaber()">Calcular haber estimado</button>
+    </div>
+
+    <div id="resultado-haber"></div>
+  </div>
+
+  <script>
+    function calcularHaber() {
+      const promedio = parseFloat(document.getElementById("sueldoPromedio").value);
+      const base = parseFloat(document.getElementById("baseFija").value) || 1170.23;
+      let totalAnios = window.totalAniosAportados || null;
+
+      if (!promedio) {
+        alert("Por favor ingresá tu sueldo promedio.");
+        return;
+      }
+
+      if (!totalAnios) {
+        // Mostrar campo manual si aún no se vio
+        document.getElementById("aniosManual").style.display = "block";
+        const manual = parseInt(document.getElementById("aniosIngresados").value);
+        if (!manual || manual < 1) {
+          alert("Por favor ingresá tus años de aportes.");
+          return;
+        }
+        totalAnios = manual;
+      }
+
+      const extra = Math.max(0, totalAnios - 30);
+      const adicional = promedio * 0.01 * extra;
+      const haber = base + adicional;
+
+      document.getElementById("resultado-haber").style.display = "block";
+      document.getElementById("resultado-haber").innerHTML = `
+        <strong>Estimación:</strong><br>
+        Años aportados: ${totalAnios}<br>
+        Porcentaje adicional: ${extra}%<br><br>
+        <strong>Haber estimado:</strong> $${haber.toFixed(2)}<br><br>
+        <em style="font-size: 0.95rem; color: #666;">Este cálculo es orientativo. El monto real puede variar según normativa vigente.</em>
+      `;
+    }
+  </script>
+</section>
+
   <script>
     function toggleMenu() {
       const menu = document.getElementById("menuLinks");
