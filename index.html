@@ -333,5 +333,125 @@
     });
   </script>
 
+<script>
+  function calcularJubilacion() {
+    const sexo = document.getElementById("sexo").value;
+    const nacimiento = parseInt(document.getElementById("nacimiento").value);
+    if (!sexo || !nacimiento) {
+      alert("Por favor completá sexo y año de nacimiento.");
+      return;
+    }
+
+    const edadActual = new Date().getFullYear() - nacimiento;
+    const edadJubilatoria = sexo === "femenino" ? 60 : 65;
+    const aportesNecesarios = 30;
+
+    // Recolectar períodos agrupados por régimen
+    const filas = document.querySelectorAll("#historial-laboral .laboral-row");
+    const porRegimen = {
+      dependencia: [],
+      autonomo: [],
+      monotributo: [],
+      docente: [],
+      servicio_domestico: [],
+    };
+
+    filas.forEach(fila => {
+      const desde = fila.querySelector('input[type="month"]:nth-child(2)').value;
+      const hasta = fila.querySelector('input[type="month"]:nth-child(3)').value;
+      const regimen = fila.querySelector('select').value;
+
+      if (desde && hasta && regimen) {
+        const d = new Date(desde);
+        const h = new Date(hasta);
+        if (d <= h) {
+          porRegimen[regimen].push({ desde: d, hasta: h });
+        }
+      }
+    });
+
+    // Fusionar y calcular meses por régimen
+    const resumen = {};
+    let totalMeses = 0;
+
+    for (const [regimen, periodos] of Object.entries(porRegimen)) {
+      const fusionados = fusionarPeriodos(periodos);
+      const meses = fusionados.reduce((acc, p) => acc + contarMeses(p.desde, p.hasta), 0);
+      if (meses > 0) resumen[regimen] = meses;
+      totalMeses += meses;
+    }
+
+    // Agregar tareas de cuidado
+    if (sexo === "femenino") {
+      const hijos = parseInt(document.getElementById("hijos").value) || 0;
+      const discapacitados = parseInt(document.getElementById("hijos-discapacitados").value) || 0;
+      const adoptados = parseInt(document.getElementById("hijos-adoptados").value) || 0;
+      const auh = parseInt(document.getElementById("auh").value) || 0;
+      const extra = hijos * 12 + discapacitados * 12 + adoptados * 24 + auh * 24;
+      totalMeses += extra;
+      if (extra > 0) resumen["tareas de cuidado"] = extra;
+    }
+
+    const totalAnios = Math.floor(totalMeses / 12);
+    const resultado = document.getElementById("resultado-calculo");
+    let mensaje = `<strong>Edad actual:</strong> ${edadActual} años<br><br><strong>Aportes por régimen:</strong><br>`;
+
+    for (const [r, m] of Object.entries(resumen)) {
+      const nombre = traducirRegimen(r);
+      mensaje += `• ${nombre}: ${Math.floor(m / 12)} año(s)<br>`;
+    }
+
+    mensaje += `<br><strong>Total combinado:</strong> ${totalAnios} año(s)<br><br>`;
+
+    // Resultado general
+    if (edadActual >= edadJubilatoria && totalAnios >= aportesNecesarios) {
+      mensaje += `<span style='color: green; font-weight: bold;'>¡Podés iniciar tu trámite jubilatorio!</span>`;
+    } else if (edadActual >= edadJubilatoria && totalAnios < aportesNecesarios) {
+      const faltan = aportesNecesarios - totalAnios;
+      mensaje += `<span style='color: orange; font-weight: bold;'>Ya tenés la edad, pero te faltan ${faltan} año(s) de aportes.</span>`;
+    } else if (edadActual < edadJubilatoria && totalAnios >= aportesNecesarios) {
+      const faltaEdad = edadJubilatoria - edadActual;
+      mensaje += `<span style='color: blue; font-weight: bold;'>Ya tenés los aportes. Cumplís la edad jubilatoria en ${new Date().getFullYear() + faltaEdad}.</span>`;
+    } else {
+      const faltanAportes = aportesNecesarios - totalAnios;
+      const faltaEdad = edadJubilatoria - edadActual;
+      mensaje += `<span style='color: red; font-weight: bold;'>Te faltan ${faltanAportes} año(s) de aportes y ${faltaEdad} año(s) para la edad jubilatoria.</span>`;
+    }
+
+    resultado.innerHTML = mensaje;
+    resultado.style.display = "block";
+  }
+
+  function contarMeses(desde, hasta) {
+    return (hasta.getFullYear() - desde.getFullYear()) * 12 + (hasta.getMonth() - desde.getMonth()) + 1;
+  }
+
+  function fusionarPeriodos(periodos) {
+    periodos.sort((a, b) => a.desde - b.desde);
+    const fusionados = [];
+    periodos.forEach(p => {
+      if (!fusionados.length || p.desde > fusionados[fusionados.length - 1].hasta) {
+        fusionados.push({ ...p });
+      } else {
+        const ult = fusionados[fusionados.length - 1];
+        ult.hasta = new Date(Math.max(ult.hasta, p.hasta));
+      }
+    });
+    return fusionados;
+  }
+
+  function traducirRegimen(valor) {
+    const mapa = {
+      dependencia: "Relación de dependencia",
+      autonomo: "Autónomo",
+      monotributo: "Monotributo",
+      docente: "Docente",
+      servicio_domestico: "Servicio doméstico",
+      "tareas de cuidado": "Tareas de cuidado"
+    };
+    return mapa[valor] || valor;
+  }
+</script>
+
 </body>
 </html>
