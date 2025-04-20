@@ -228,6 +228,15 @@
       <button onclick="document.getElementById('fileInput').click()">Adjuntar PDF</button>
       <input type="file" id="fileInput" accept="application/pdf" onchange="leerPDF(this.files[0])" />
     </div>
+    <!-- Agregalo justo debajo de los botones -->
+<div class="botones">
+  <button onclick="calcularJubilacion()">Calcular situación previsional</button>
+</div>
+
+<div id="resultado-calculo" style="margin-top: 30px; padding: 20px; border-radius: 10px; background: #f0f4f8; border-left: 6px solid #007acc; font-size: 1.1rem; display: none;">
+  <!-- Aquí se mostrará el resultado del análisis -->
+</div>
+    
   </div>
 
   <!-- Cargar librería PDF.js -->
